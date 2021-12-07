@@ -6,18 +6,27 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthService } from './services/auth.service';
+import { IsRider } from './services/is-rider.service';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { RiderComponent } from './components/rider/rider.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { RiderDashboardComponent } from './components/rider-dashboard/rider-dashboard.component';
+import { TripListResolver } from './services/trip-list.resolver';
+import { TripService } from './services/trip.service';
+import { RiderRequestComponent } from './components/rider-request/rider-request.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     LogInComponent,
-    SignUpComponent
+    RiderComponent,
+    SignUpComponent,
+    RiderDashboardComponent,
+    RiderRequestComponent
   ],
   imports: [
     HttpClientModule,
@@ -26,7 +35,10 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     AppRoutingModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    IsRider,
+    TripListResolver,
+    TripService
   ],
   bootstrap: [
     AppComponent
