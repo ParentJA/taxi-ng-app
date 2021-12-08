@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['..']">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Request</li>
+      </ol>
+    </nav>
+    <div class="card">
+      <div class="card-header">Request Trip</div>
+      <div class="card-body">
+        <div *ngIf="apiLoaded | async" class="mb-3">
+          <google-map height="300px" width="100%" [center]="origin">
+            <map-directions-renderer
+              *ngIf="(directions | async) as directions"
+              [directions]="directions"
+            >
+            </map-directions-renderer>
+          </google-map>
+        </div>
+        <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label" for="pickUpAddress">Pick up address:</label>
+            <input
+              id="pickUpAddress"
+              class="form-control"
+              type="text"
+              [(ngModel)]="trip.pick_up_address"
+              name="pickUpAddress"
+              required
+            >
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="dropOffAddress">Drop off address:</label>
+            <input
+              id="dropOffAddress"
+              class="form-control"
+              type="text"
+              [(ngModel)]="trip.drop_off_address"
+              name="dropOffAddress"
+              required
+            >
+          </div>
+          <div class="d-grid">
+            <button
+              class="btn btn-primary mb-3"
+              type="button"
+              (click)="onUpdate()"
+              [disabled]="!requestForm.form.valid"
+            >Update Map</button>
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="!requestForm.form.valid"
+            >Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
