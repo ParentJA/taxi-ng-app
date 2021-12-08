@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 import { Trip, TripService } from '../../services/trip.service';
@@ -16,6 +17,7 @@ export class DriverDashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private toastr: ToastrService,
     private tripService: TripService
   ) {}
 
@@ -39,7 +41,14 @@ export class DriverDashboardComponent implements OnInit, OnDestroy {
     this.messages = this.tripService.messages.subscribe((message: any) => {
       const trip: Trip = message.data;
       this.updateTrips(trip);
+      this.updateToast(trip);
     });
+  }
+
+  updateToast(trip: Trip): void {
+    if (trip.driver === null) {
+      this.toastr.info(`Rider ${trip.rider!.first_name} has requested a trip.`);
+    }
   }
 
   updateTrips(trip: Trip): void {

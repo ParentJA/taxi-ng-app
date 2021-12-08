@@ -11,6 +11,15 @@
     <div class="card">
       <div class="card-header">Request Trip</div>
       <div class="card-body">
+        <div *ngIf="apiLoaded | async" class="mb-3">
+          <google-map height="300px" width="100%" [center]="origin">
+            <map-directions-renderer
+              *ngIf="(directions | async) as directions"
+              [directions]="directions"
+            >
+            </map-directions-renderer>
+          </google-map>
+        </div>
         <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label class="form-label" for="pickUpAddress">Pick up address:</label>
@@ -36,7 +45,13 @@
           </div>
           <div class="d-grid">
             <button
-              class="btn btn-primary btn-block"
+              class="btn btn-primary mb-3"
+              type="button"
+              (click)="onUpdate()"
+              [disabled]="!requestForm.form.valid"
+            >Update Map</button>
+            <button
+              class="btn btn-primary"
               type="submit"
               [disabled]="!requestForm.form.valid"
             >Submit

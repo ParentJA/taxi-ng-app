@@ -1,8 +1,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { TripService } from '../../services/trip.service';
 import { createFakeTrip } from '../../testing/factories';
@@ -19,7 +22,9 @@ describe('RiderRequestComponent', () => {
       imports: [
         FormsModule,
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        GoogleMapsModule,
+        ToastrModule.forRoot()
       ],
       declarations: [ RiderRequestComponent ],
       providers: [ TripService ]

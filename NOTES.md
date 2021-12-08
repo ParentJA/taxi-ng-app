@@ -1,12 +1,10 @@
 # Notes
 
-## Django
+## Server
 
-Check photos. Try signing up and uploading a photo. Issue might be happening due to transferring media from Part 2 to Part 3.
+## Client
 
-## Bootstrap
-
-Need to update all Bootstrap components. A lot has changed in Bootstrap v5.
+Why are tests failing for driver dashboard? I think it has something to do with the `otherUser()` function not returning the right data. I believe the test should mock the `AuthService.isRider()` function to return `false`. Alternatively, we might need to mock the component's `otherUser()` function to return the rider.
 
 ## Postgres
 

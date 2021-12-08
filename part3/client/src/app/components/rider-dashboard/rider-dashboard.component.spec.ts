@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Data } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { ToastrModule } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 
 import { TripService } from '../../services/trip.service';
@@ -30,7 +31,8 @@ describe('RiderDashboardComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        ToastrModule.forRoot()
       ],
       declarations: [
         RiderDashboardComponent,

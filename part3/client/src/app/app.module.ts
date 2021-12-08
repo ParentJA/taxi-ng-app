@@ -1,9 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AuthService } from './services/auth.service';
 import { IsDriver } from './services/is-driver.service';
@@ -42,9 +46,13 @@ import { DriverDetailComponent } from './components/driver-detail/driver-detail.
   ],
   imports: [
     HttpClientModule,
+    HttpClientJsonpModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GoogleMapsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
