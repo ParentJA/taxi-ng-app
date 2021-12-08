@@ -6,11 +6,11 @@ import { Subscription } from 'rxjs';
 import { Trip, TripService } from '../../services/trip.service';
 
 @Component({
-  selector: 'app-rider-dashboard',
-  templateUrl: './rider-dashboard.component.html',
-  styleUrls: ['./rider-dashboard.component.css']
+  selector: 'app-driver-dashboard',
+  templateUrl: './driver-dashboard.component.html',
+  styleUrls: ['./driver-dashboard.component.css']
 })
-export class RiderDashboardComponent implements OnInit, OnDestroy {
+export class DriverDashboardComponent implements OnInit, OnDestroy {
   messages!: Subscription;
   trips!: Array<Trip>;
 
@@ -25,10 +25,12 @@ export class RiderDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  get requestedTrips(): ReadonlyArray<Trip> {
+    return this.trips.filter(trip => trip.status === 'REQUESTED');
+  }
+
   get completedTrips(): ReadonlyArray<Trip> {
-    return this.trips.filter(trip => {
-      return trip.status === 'COMPLETED';
-    });
+    return this.trips.filter(trip => trip.status === 'COMPLETED');
   }
 
   ngOnInit(): void {

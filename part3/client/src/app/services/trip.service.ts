@@ -26,6 +26,10 @@ type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 export type WritableTripData = Mutable<WritableTrip>;
 
+export const otherUser = (trip: Trip): User | null => {
+  return AuthService.isRider() ? trip.driver : trip.rider;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -56,6 +60,23 @@ export class TripService {
       type: 'create.trip',
       data: {
         ...trip, rider: trip.rider!.id
+      }
+    };
+    this.webSocket.next(message);
+  }
+
+  getTrip(id: string): Observable<Trip> {
+    const accessToken = AuthService.getAccessToken();
+    const headers = new HttpHeaders({ Authorization: `Bearer ${accessToken}` });
+    return this.http.get<Trip>(`/api/trip/${id}/`, { headers });
+  }
+
+  updateTrip(trip: WritableTripData): void {
+    this.connect();
+    const message: any = {
+      type: 'update.trip',
+      data: {
+        ...trip, driver: trip.driver!.id, rider: trip.rider!.id
       }
     };
     this.webSocket.next(message);

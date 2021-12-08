@@ -42,6 +42,27 @@ describe('TripService', () => {
     });
   });
 
+  it('should allow a user to get a trip by ID', () => {
+    const tripData = createFakeTrip();
+    tripService.getTrip(tripData.id).subscribe(trip => {
+      expect(trip).toEqual(tripData);
+    });
+    const request: TestRequest = httpMock.expectOne(`/api/trip/${tripData.id}/`);
+    request.flush(tripData);
+  });
+
+  it('should allow a user to update a trip', () => {
+    tripService.webSocket = jasmine.createSpyObj('webSocket', ['next']);
+    const trip = createFakeTrip({ status: 'IN_PROGRESS' });
+    tripService.updateTrip(trip);
+    expect(tripService.webSocket.next).toHaveBeenCalledWith({
+      type: 'update.trip',
+      data: {
+        ...trip, driver: trip.driver!.id, rider: trip.rider!.id
+      }
+    });
+  });
+
   afterEach(() => {
     httpMock.verify();
   });
