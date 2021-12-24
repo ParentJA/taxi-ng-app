@@ -36,3 +36,6 @@ From your terminal, run the following:
 $ docker cp taxi.sql <container_id>:/
 $ docker-compose exec taxi-database psql -U taxi -d taxi -f taxi.sql
 ```
+
+## Checkpoints
+
