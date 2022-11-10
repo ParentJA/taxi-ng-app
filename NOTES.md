@@ -39,3 +39,9 @@ $ docker-compose exec taxi-database psql -U taxi -d taxi -f taxi.sql
 
 ## Checkpoints
 
+## TODO
+
+### Part 2
+
+- Need to update the *asgi.py* file in *part1/* here and also in the **taxi-react-app** to set the `DJANGO_SETTINGS_MODULE` environment variable before any local imports.
+- Need to update images (and text) for Google Cloud Platform (and others). Use **taxi-react-app** updates.

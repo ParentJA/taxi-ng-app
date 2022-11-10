@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/driver']">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Trip</li>
+      </ol>
+    </nav>
+    <div class="card">
+      <h4 class="card-header">Trip</h4>
+      <div class="card-body">
+        <div class="d-flex">
+          <img class="me-3 rounded-circle" [src]="trip.rider!.photo" width="80" height="80">
+          <div>
+            <h5 class="mt-0 mb-1 fw-bold">{{ trip.rider!.first_name }}</h5>
+            <p>
+              <strong>{{ trip.pick_up_address }}</strong> to <strong>{{ trip.drop_off_address }}</strong><br>
+              <span class="text-secondary">{{ trip.status }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" [ngSwitch]="trip.status">
+        <div class="d-grid">
+          <button
+            class="btn btn-primary"
+            *ngSwitchCase="'REQUESTED'"
+            (click)="updateTripStatus('STARTED')"
+          >
+            Drive to pick up
+          </button>
+          <button
+            class="btn btn-primary"
+            *ngSwitchCase="'STARTED'"
+            (click)="updateTripStatus('IN_PROGRESS')"
+          >
+            Drive to drop off
+          </button>
+          <button
+            class="btn btn-primary"
+            *ngSwitchCase="'IN_PROGRESS'"
+            (click)="updateTripStatus('COMPLETED')"
+          >
+            Complete trip
+          </button>
+        </div>
+        <div class="d-grid" *ngSwitchDefault>
+          <button
+            class="btn btn-success"
+            disabled
+          >Completed
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

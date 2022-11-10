@@ -22,6 +22,8 @@ export interface Token {
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(private http: HttpClient) {}
+
   private static parseUserFromAccessToken(accessToken: string): User {
     const [, payload, ] = accessToken.split('.');
     const decoded = window.atob(payload);
@@ -56,7 +58,13 @@ export class AuthService {
     return false;
   }
 
-  constructor(private http: HttpClient) {}
+  static isDriver(): boolean {
+    const user = this.getUser();
+    if (user) {
+      return user.group === 'driver';
+    }
+    return false;
+  }
 
   signUp(
     username: string,

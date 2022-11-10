@@ -3,13 +3,13 @@ version: '3.8'
 services:
   taxi-redis:
     container_name: taxi-redis
-    image: redis:6.2-alpine
+    image: redis:7-alpine
 
   taxi-database:
     container_name: taxi-database
     environment:
       - POSTGRES_PASSWORD=taxi
-    image: postgres:14.1
+    image: postgres:15-alpine
     ports:
       - 5433:5432
     volumes:
@@ -29,8 +29,8 @@ services:
       - 8001:8000
     volumes:
       - ./server:/usr/src/app
-      - media:/usr/src/app/media 
-      - static:/usr/src/app/static 
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
 
   taxi-client:
     build:
@@ -46,7 +46,6 @@ services:
     volumes:
       - ./client:/usr/src/app
 
-  
   nginx:
     build:
       context: ./nginx
@@ -63,5 +62,5 @@ services:
 
 volumes:
   taxi-database:
-  media: 
-  static: 
+  media:
+  static:
